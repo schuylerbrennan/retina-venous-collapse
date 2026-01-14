@@ -21,6 +21,16 @@ A more detailed description of the methods, including parameter values and sourc
 - These lines need to be uncommented to turn venous collapsibility on:
 
 ```
+  if Pvar.TMSV >= 0
+	   Rvar.RSV = (((Prmc.kr.SV*Lc.Leffsv)/((pi*rref.SV^2))^2)*(1+(Pvar.TMSV/(Prmc.kp.SV*Prmc.kl.SV)))^-4)/nvar.nSV;
+	   Rvar.alphaSV = ((Pvar.TMSV)/(Prmc.kp.SV*Prmc.kl.SV) + 1)^2;
+       Rvar.ASV = Rvar.alphaSV*pi*rref.SV^2;
+  else
+       Rvar.RSV = (((Prmc.kr.SV*Lc.Leffsv)/((pi*rref.SV^2))^2)*(1-(Pvar.TMSV/(Prmc.kp.SV)))^(4/3))/nvar.nSV;
+       Rvar.alphaSV = (1 - (Pvar.TMSV)/(Prmc.kp.SV))^(-2/3);
+       Rvar.ASV = Rvar.alphaSV*pi*rref.SV^2;
+  end
+
   if Pvar.TMLV >= 0
        Rvar.RLV = (((Prmc.kr.LV*Lc.Lefflv)/((pi*rref.LV^2))^2)*(1+(Pvar.TMLV/(Prmc.kp.LV*Prmc.kl.LV)))^-4)/nvar.nLV;
        Rvar.alphaLV = ((Pvar.TMLV)/(Prmc.kp.LV*Prmc.kl.LV) + 1)^2;
@@ -37,7 +47,7 @@ A more detailed description of the methods, including parameter values and sourc
 
 
 ```
-        Rvar.RSV = (((Prmc.kr.SV*Lc.Leffsv)/((pi*rref.SV^2))^2)*(1+(Pvar.TMSV/(Prmc.kp.SV*Prmc.kl.SV)))^-4)/nvar.nSV;
+	    Rvar.RSV = (((Prmc.kr.SV*Lc.Leffsv)/((pi*rref.SV^2))^2)*(1+(Pvar.TMSV/(Prmc.kp.SV*Prmc.kl.SV)))^-4)/nvar.nSV;
         Rvar.alphaSV = ((Pvar.TMSV)/(Prmc.kp.SV*Prmc.kl.SV) + 1)^2;
         Rvar.ASV = Rvar.alphaSV*pi*rref.SV^2;
 
